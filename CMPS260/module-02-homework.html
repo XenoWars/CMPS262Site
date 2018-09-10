@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 2 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+
+// NOTE: You can enter both code and explanations. For an explanation, start
+//       the line with '//' which indicates a comment.
+
+// NOTE: console.log prints text to the browser console that you can enable
+//       to see the output. It is a little bit more convenient than alert so
+//       we will use it most of the time.
+
+// NOTE: Please review the following links regularly:
+//       https://it.pointpark.edu/tutorials/arrays-vs-objects/
+//       https://it.pointpark.edu/tutorials/no-prototype-vs-prototype/
+//       https://it.pointpark.edu/tutorials/implementation-vs-interface/
+
+
+
+//---------------------------//
+// Why should we use arrays? //
+//---------------------------//
+console.log("Why should we use arrays?");
+
+// None.
+
+
+
+//----------------------------------//
+// Creating and initializing arrays //
+//----------------------------------//
+console.log("Creating and initializing arrays");
+
+// 1. Study the following sequence: 1, 3, 2, 6, 5, 15, 14, 42, ...
+//    Create an array with the first 25 elements of this sequence.
+//    Obviously this has to be done programmatically.
+var subMult = [1];
+for (var i = 0; i < 24; i += 2) {
+  subMult.splice(subMult.length, 0, subMult[i] * 3);
+  subMult.splice(subMult.length, 0, subMult[i + 1] - 1);
+}
+console.log(subMult);
+
+//-----------------//
+// Adding elements //
+//-----------------//
+console.log("Adding elements");
+
+// Use this array to answer the questions below.
+var arr = [2, 3, 4, 5, 6, 7, 8];
+
+// 1. Add 9 and 10 to the end of the array. Make sure you keep the order.
+arr.splice(arr.length, 0, 9, 10);
+console.log(arr);
+// 2. Add 0 and 1 to the beginning of the array. Make sure you keep the order.
+arr.splice(0, 0, 0, 1);
+console.log(arr);
+
+
+//-------------------//
+// Removing elements //
+//-------------------//
+console.log("Removing elements");
+
+// Use the array from the 'Adding elements' section.
+
+// 1. Remove 9 and 10 from the end of the array.
+arr.pop();
+arr.pop();
+console.log(arr);
+// 2. Remove 0 and 1 from the beginning of the array.
+arr.shift();
+arr.shift();
+console.log(arr);
+
+
+//-------------------------------------------------------//
+// Adding and removing elements from a specific position //
+//-------------------------------------------------------//
+console.log("Adding and removing elements from a specific position");
+
+// Use the array from the 'Adding elements' section.
+
+// 1. Remove all elements except the first and last.
+arr.splice(1, 5);
+console.log(arr);
+// 2. Insert the numbers that were just removed back into the array.
+arr.splice(1, 0, 3, 4, 5, 6, 7);
+console.log(arr);
+// NOTE: arr should be back to its original state at this point.
+
+
+
+//---------------------------------------------//
+// Two-dimensional and multidimensional arrays //
+//---------------------------------------------//
+console.log("Two-dimensional and multidimensional arrays");
+
+// 1. Multiply the row elements together in the two dimensional array below
+//    and then sum the result. So for the array below one would get
+//    (1*2*3)+(4*5*6)+(7*8*9). Print the result to the console.
+//    NOTE: obviously the code should still work if the numbers in the array
+//          are changed.
+
+var arrd = [[1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9]];
+var example = [[7, 7, 7],
+              [7, 7, 7],
+              [7, 7, 7]];
+var hiThere = [[3, 2, 5],
+              [4, 2, 7],
+              [1, 6, 9]];
+function multiplyAndAdd2D(arr) {
+  var total = 1;
+  var add = []
+  for (var i = 0; i < arr.length; i++) {
+    var secondi = arr[i];
+    for (var j = 0; j < secondi.length; j++) {
+      total = total * secondi[j];
+    }
+    console.log(total);
+    add.splice(add.length, 0, total);
+    total = 1;
+  }
+  total = 0;
+  for (var i = 0; i < add.length; i++) {
+    total = total + add[i];
+    console.log(total);
+  }
+}
+//tested by changing 1 to 3 in arr[1]. Expected 642 and got 642.
+multiplyAndAdd2D(arrd); //expect 630
+multiplyAndAdd2D(example); //expect 1029
+multiplyAndAdd2D(hiThere); //expect 140
+
+//-----------------------------------------//
+// References for JavaScript array methods //
+//-----------------------------------------//
+console.log("References for JavaScript array methods");
+
+// Use the following two arrays to answer the next questions.
+
+var positiveNumbers = [1, 2, 3, 4, 5, 0];
+var negativeNumbers = [-5, -4, -3, -2, -1];
+
+// 1. Create a new array 'numbers' from the above arrays that contains all
+//    numbers in order.
+
+var numbers = negativeNumbers.concat(positiveNumbers);
+numbers.pop();
+numbers.splice(5, 0, 0); // to be changed
+console.log(numbers);
+// 2. Check if some numbers in the numbers array are larger than or equal to 0
+//    and print the result to the console.
+for (i = 0; i < numbers.length; i++) {
+  if (numbers[i] >= 0) {
+    console.log(numbers[i]);
+  }
+}
+// 3. Create a new array that only contains the odd numbers from the numbers
+//    array.
+var odd = [];
+for (var i = 0; i < numbers.length; i++) {
+  if (numbers[i] % 2 !== 0) {
+    odd.splice(odd.length, 0, numbers[i]);
+  }
+}
+console.log(odd);
+// Only read ECMAScript sections.
+
+
+
+//----------------------//
+// The TypedArray class //
+//----------------------//
+console.log("The TypedArray class");
+
+// None.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// The following text is from the all the Amendments in the Bill of Rights.
+var text = "Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press; or the right of the people peaceably to assemble, and to petition the Government for a redress of grievances. A well regulated Militia, being necessary to the security of a free State, the right of the people to keep and bear Arms, shall not be infringed. No Soldier shall, in time of peace be quartered in any house, without the consent of the Owner, nor in time of war, but in a manner to be prescribed by law. The right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated, and no Warrants shall issue, but upon probable cause, supported by Oath or affirmation, and particularly describing the place to be searched, and the persons or things to be seized. No person shall be held to answer for a capital, or otherwise infamous crime, unless on a presentment or indictment of a Grand Jury, except in cases arising in the land or naval forces, or in the Militia, when in actual service in time of War or public danger; nor shall any person be subject for the same offence to be twice put in jeopardy of life or limb; nor shall be compelled in any criminal case to be a witness against himself, nor be deprived of life, liberty, or property, without due process of law; nor shall private property be taken for public use, without just compensation. In all criminal prosecutions, the accused shall enjoy the right to a speedy and public trial, by an impartial jury of the State and district wherein the crime shall have been committed, which district shall have been previously ascertained by law, and to be informed of the nature and cause of the accusation; to be confronted with the witnesses against him; to have compulsory process for obtaining witnesses in his favor, and to have the Assistance of Counsel for his defence. In Suits at common law, where the value in controversy shall exceed twenty dollars, the right of trial by jury shall be preserved, and no fact tried by a jury, shall be otherwise re-examined in any Court of the United States, than according to the rules of the common law. Excessive bail shall not be required, nor excessive fines imposed, nor cruel and unusual punishments inflicted. The enumeration in the Constitution, of certain rights, shall not be construed to deny or disparage others retained by the people. The powers not delegated to the United States by the Constitution, nor prohibited by it to the States, are reserved to the States respectively, or to the people.";
+
+// First we make the text lower case.
+text = text.toLowerCase();
+
+// Then we remove punctuation by using a regular expression.
+text = text.replace(/[.,;]/g, "");
+
+// And store the words into an array.
+var textArray = text.split(" ");
+
+// 1. Remove all words from the array of length less than or equal to 3. Or,
+//    similarly, keep all words of length 4 or greater.
+console.log(textArray);
+var removeText = []
+for (var i = 0; i < textArray.length; i++) {
+  if (textArray[i].length < 4) {
+    removeText.splice(removeText.length, 0, textArray[i]);
+  }
+}
+console.log(removeText);
+
+///Unfortuantely, I still cannot seem to figure out how to remove the words correctly.
+//I tried splicing the words when found, but if there's two in a row, it would Skip
+//the next one since after the splice, that next one would be in the spot where the
+//removed word was, thus being ignored by the for loop. So for now, I just put all the
+//words into a different array.
+
+// 2. Create a new array that contains all duplicate words that are left after
+//    removing the short words in step (1).
+
+
+
+</script>
+</head>
+<body>
+  See Console!
+</body>
+</html>
