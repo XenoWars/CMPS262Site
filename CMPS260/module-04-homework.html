@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 4 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//--------------------------//
+// The queue data structure //
+//--------------------------//
+console.log("The queue data structure");
+
+// None.
+
+
+
+//------------------//
+// Creating a queue //
+//------------------//
+console.log("Creating a queue");
+
+// 1. Implement the queue data structure using the prototype (as opposed to the
+//    version we wrote in class).
+
+function Queue() {
+  // properties are initialized here
+}
+var items = [];
+Queue.prototype.enqueue = function(element) {
+  items.push(element);
+}
+Queue.prototype.dequeue = function() {
+  return items.shift();
+}
+Queue.prototype.front = function() {
+  return items[0];
+}
+Queue.prototype.isEmpty = function() {
+  return items.length == 0;
+}
+Queue.prototype.clear = function() {
+  items = [];
+}
+Queue.prototype.size = function() {
+  return items.length;
+}
+Queue.prototype.print = function() {
+  console.log(items.toString());
+}
+// methods go here using Queue.prototype.
+
+// 2. Write a simple test program that shows your stack works.
+var queue = new Queue();
+queue.enqueue(3);
+queue.enqueue(7);
+queue.enqueue(5);
+queue.print();
+queue.dequeue();
+queue.print();
+console.log(queue.front());
+queue.enqueue(3);
+// 3. Add a method to Queue that returns the smallest value in the queue. Return
+//    null if there are no elements in the queue. Show that your method works.
+Queue.prototype.smallest = function() {
+  this.small = items[0];
+  for (var i = 0; i < items.length; i++) {
+    if (items[i] - this.small < 0) {
+      this.small = items[i];
+    }
+  }
+  console.log(this.small);
+}
+queue.smallest(); //Expect 3
+queue.enqueue(1);
+queue.smallest(); //Expect 1
+
+
+
+//-------------------------------------------//
+// The Queue class using ECMAScript 6 syntax //
+//-------------------------------------------//
+console.log("The Queue class using ECMAScript 6 syntax");
+
+// Skip.
+
+
+
+//--------------------//
+// The priority queue //
+//--------------------//
+console.log("The priority queue");
+
+// The following class is used below.
+
+function QueueElement(element, priority) {
+  this.element = element;
+  this.priority = priority;
+}
+
+// 1. Implement the priority queue data structure using the prototype (as
+//    opposed to the version we wrote in class).
+
+function PriorityQueue() {
+  // properties are initialized here
+}
+var items = [];
+function QueueElement(element, priority) {
+  this.element = element;
+  this.priority = priority;
+}
+PriorityQueue.prototype.enqueue = function(element, priority) {
+  var queueElement = new QueueElement(element, priority);
+  if (this.isEmpty()) {
+    items.push(queueElement);
+  }
+  else {
+    var added = false;
+    for (var i = 0; i < items.length; i++) {
+      if (queueElement.priority < items[i].priority) {
+        items.splice(i, 0, queueElement);
+        added = true;
+        break;
+      }
+    }
+    if (!added) {
+      items.push(queueElement);
+    }
+  }
+}
+PriorityQueue.prototype.dequeue = function() {
+  return items.shift();
+}
+PriorityQueue.prototype.front = function() {
+  return items[0];
+}
+PriorityQueue.prototype.isEmpty = function() {
+  return items.length == 0;
+}
+PriorityQueue.prototype.clear = function() {
+  items = [];
+}
+PriorityQueue.prototype.print = function() {
+  for (var i = 0; i < items.length; i++) {
+    console.log(`${items[i].element} - ${items[i].priority}`);
+  }
+}
+// methods go here using PriorityQueue.prototype.
+
+// 2. Write a simple test that makes sure the priority queue works as expected.
+
+var prior = new PriorityQueue();
+prior.enqueue(3, 0);
+prior.enqueue(7, 2);
+prior.enqueue(5, 1);
+prior.print();
+prior.dequeue();
+prior.print();
+prior.enqueue(3, 0);
+prior.print();
+
+//---------------------------------//
+// The circular queue - Hot Potato //
+//---------------------------------//
+console.log("The circular queue - Hot Potato");
+
+// None.
+
+
+
+//------------------------//
+// JavaScript task queues //
+//------------------------//
+console.log("JavaScript task queues");
+
+// Skip.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Create a queue that stores edibles, that can be either fruits or
+//    vegetables. Use the constructor below to create the edible and store a
+//    few of each kind in the queue (at least 3 of each).
+
+function Edible(name, isFruit) {
+  this.name = name;
+  this.isFruit = isFruit; // if not fruit, it must be a vegetable
+  this.toString = function() {
+    return "Edible: " + this.name + " Fruit: " + this.isFruit;
+  };
+}
+// For examle: var apple = new Edible("Apple", true);
+
+var food = new Queue();
+var pear = new Edible("Pear", true);
+var banana = new Edible("Banana", true);
+var broccoli = new Edible("Broccoli", false);
+var corn = new Edible("Corn", false);
+var peach = new Edible("Peach", true);
+var greenBean = new Edible("Green Beans", false);
+food.enqueue(pear);
+food.enqueue(banana);
+food.enqueue(broccoli);
+food.enqueue(corn);
+food.enqueue(peach);
+food.enqueue(greenBean);
+food.dequeue();
+food.dequeue();
+food.dequeue();
+food.print();
+
+// 2. Create two more queues: one for fruits and one for vegetables. For this
+//    question, only create them (and leave them empty).
+var fruits = new Queue();
+var veggies = new Queue();
+// 3. Dequeue all the elements from the edible queue and enqueue them in the
+//    appropriate queue, either for fruits or vegetables.
+food.dequeue();
+food.dequeue();
+food.dequeue();
+food.dequeue();
+food.dequeue();
+food.dequeue();
+food.print();
+
+fruits.enqueue(pear);
+fruits.enqueue(banana);
+fruits.enqueue(peach);
+fruits.print();
+
+veggies.dequeue();
+veggies.dequeue();
+veggies.dequeue();
+veggies.enqueue(broccoli);
+veggies.enqueue(corn);
+veggies.enqueue(greenBean);
+veggies.print();
+// 4. Print the final contents to the console, showing that your code works.
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 6 Class</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//-----------------------//
+// Structuring a dataset //
+//-----------------------//
+console.log("Structuring a dataset");
+
+// Skip.
+
+
+
+//----------------//
+// Creating a set //
+//----------------//
+console.log("Creating a set");
+
+// 1. Finish the implemention of the set data structure below. Note that this
+//    implementation does not use the prototype (see homework).
+
+function Set() {
+  var items = {}; // note that this is an object instead of an array
+
+  this.has = function(value) {
+    return value in items;
+  };
+
+  this.add = function(value) {
+    if (!this.has(value)) {
+      items[value] = value;
+      return true;
+    }
+    return false;
+  };
+
+  this.delete = function(value) {
+    if (this.has(value)) {
+      delete items[value];
+      return true;
+    }
+    return false;
+  };
+
+
+  this.clear = function() {
+    items = {};
+  };
+
+  this.size = function() {
+    return Object.keys(items).length;
+  };
+
+  this.values = function() {
+    var values = [];
+    for (var i = 0, keys = Object.keys(items); i < keys.length; i++) {
+      values.push(items[keys[i]]);
+    }
+    return values;
+  };
+  this.union = function(otherSet) {
+    var unionSet = new Set();
+    var values = this.values();
+    for (var i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+    values = otherSet.values();
+    for (var i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+    return unionSet;
+  };
+  this.intersection = function(otherSet) {
+    var intersectionSet = new Set();
+    var values = this.values();
+    for (var i = 0; i < values.length; i++) {
+      if (otherSet.has(values[i])) {
+        intersectionSet.add(values[i]);
+      }
+    }
+    return intersectionSet;
+  };
+  this.difference = function(otherSet) {
+    var differenceSet = new Set();
+    var values = this.values();
+    for (i = 0; i < values.length; i++) {
+      if (!otherSet.has(values[i])) {
+        differenceSet.add(values[i]);
+      }
+    }
+    return differenceSet;
+  };
+  this.subset = function(otherSet) {
+    if (this.size() > otherSet.size()) {
+      return false;
+    }
+    else {
+      var values = this.values();
+      for (var i =0; i < values.length; i++) {
+        if (!otherSet.has(values[i])) {
+          return false;
+        }
+      }
+      return true;
+    }
+  };
+}
+
+
+
+//----------------//
+// Set operations //
+//----------------//
+console.log("Set operations");
+
+// 1. Implement the union set function.
+
+// 2. Implement the intersection set function.
+
+// 3. Implement the set difference function.
+
+// 4. Implement the subset function.
+
+
+//---------------------//
+// ES6 – the Set class //
+//---------------------//
+console.log("ES6 – the Set class");
+
+// Skip.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Write a function that takes two sets as input and returns true if
+//    they have the same elements, and false otherwise. Test your code.
+
+function isEqual(set1, set2) {
+  if (set1.subset(set2) === true && set2.subset(set1) === true) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+var firstSet = new Set();
+firstSet.add(5);
+firstSet.add(1);
+firstSet.add(21);
+firstSet.add(12);
+firstSet.add(0);
+firstSet.add(16);
+console.log(firstSet.values());
+
+var secondSet = new Set();
+secondSet.add(5);
+secondSet.add(1);
+secondSet.add(21);
+secondSet.add(12);
+secondSet.add(0);
+secondSet.add(16);
+console.log(secondSet.values());
+
+var thirdSet = new Set();
+thirdSet.add(2);
+thirdSet.add(4);
+thirdSet.add(6);
+thirdSet.add(8);
+thirdSet.add(10);
+thirdSet.add(12);
+console.log(thirdSet.values());
+
+console.log(isEqual(firstSet, secondSet)); //true
+console.log(isEqual(firstSet, thirdSet)); //false
+console.log(isEqual(secondSet, firstSet)); //true
+console.log(isEqual(secondSet, thirdSet)); //false
+console.log(isEqual(thirdSet, firstSet)); //false
+console.log(isEqual(thirdSet, secondSet)); //false
+
+//problem 2
+
+function Stack() {
+  var items = [];
+  this.push = function(element) {
+    items.push(element);
+  }
+  this.pop = function() {
+    return items.pop();
+  }
+  this.peek = function() {
+    return items[items.length - 1];
+  }
+  this.isEmpty = function() {
+    return items.length === 0;
+  }
+  this.size = function() {
+    return items.length;
+  }
+  this.clear = function() {
+    items = [];
+  }
+  this.print = function() {
+    console.log(items.toString());
+  }
+}
+
+var stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+stack.print();
+
+var stackSet = new Set();
+function removeAdd(arr, set) {
+  while (!arr.isEmpty()) {
+    var item = arr.pop();
+    set.add(item);
+  }
+}
+removeAdd(stack, stackSet);
+stack.print();
+console.log(stackSet.values());
+
+function removePush(arr, set) {
+  for (i = 0; i < set.length; i++) {
+    arr.push(set[i]);
+    set.delete(set[i]);
+  }
+}
+removePush(stack, stackSet);
+stack.print();
+console.log(stackSet.values());
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
